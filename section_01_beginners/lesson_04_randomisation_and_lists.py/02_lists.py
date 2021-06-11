@@ -38,4 +38,12 @@ print(f"{names[random_index]} is going to buy the meal today!")
 print("Random state: " + random.choice(states_of_america))
 
 
+# Index Error
+# states_of_america[len(states_of_america)] 
+
+# Nested Lists
+fruits = ["Strawberries", "Apples", "Grapes", "Peaches", "Cherries", "Pears", "Tomatoes"]
+vegtables = ["Spinach", "Kale", "Nectarines", "Celery", "Potatoes"]
+dirty_dozen = [fruits, vegtables]
+print(dirty_dozen)
 
