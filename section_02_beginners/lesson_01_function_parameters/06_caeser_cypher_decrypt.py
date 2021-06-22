@@ -12,10 +12,19 @@ def encrypt(text, shift):
         position_in_alphabet = alphabet.index(letter)
         new_position = (position_in_alphabet + shift) % len(alphabet)
         encrypted_message += alphabet[new_position]
-    print(encrypted_message)
-# TODO-1: Create a different function called 'decrypt' that takes the 'text' and 'shift' as inputs.
+    print(f"The encoded text is {encrypted_message}")
 
-  # TODO-2: Inside the 'decrypt' function, shift each letter of the 'text' *backwards* in the alphabet by the shift amount and print the decrypted text.
+# TODO-1: Create a different function called 'decrypt' that takes the 'text' and 'shift' as inputs.
+def decrypt(text, shift):
+    decrypted_message = ""
+    for letter in text:
+        position_in_alphabet = alphabet.index(letter)
+        new_position = position_in_alphabet - shift
+        decrypted_message += alphabet[new_position]
+    print(f"The decoded text is {decrypted_message}")
+
+  # TODO-2: Inside the 'decrypt' function, shift each letter of the 'text' *backwards* in the alphabet 
+  # by the shift amount and print the decrypted text.
   # e.g.
   #cipher_text = "mjqqt"
   #shift = 5
@@ -23,5 +32,10 @@ def encrypt(text, shift):
   # print output: "The decoded text is hello"
 
 
-# TODO-3: Check if the user wanted to encrypt or decrypt the message by checking the 'direction' variable. Then call the correct function based on that 'drection' variable. You should be able to test the code to encrypt *AND* decrypt a message.
-encrypt(text, shift)
+# TODO-3: Check if the user wanted to encrypt or decrypt the message by checking the 'direction' variable. 
+# Then call the correct function based on that 'direction' variable. You should be able to test the code 
+# to encrypt *AND* decrypt a message.
+if direction == "encode":
+    encrypt(text, shift)
+elif direction == "decode":
+    decrypt(text, shift)
