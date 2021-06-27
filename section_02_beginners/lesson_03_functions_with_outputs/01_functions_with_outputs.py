@@ -1,5 +1,8 @@
 # Functions with outputs
 def format_name(f_name, l_name):
+    """Take a first and last name and format it to 
+    return the title case version of the name."""
+    # With docstrings, we can write a multi-line string
     if f_name == "" and l_name == "":
         return "You didn't provide valid inputs"
         # Multiple returns are allowed in the same method
