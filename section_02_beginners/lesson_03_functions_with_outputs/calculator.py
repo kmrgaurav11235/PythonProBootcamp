@@ -20,18 +20,18 @@ operations = {
     "*": multiply,
     "/": divide
 }
-
-num1 = int(input("What is the first number? "))
+continue_calculating = "y"
+num1 = int(input("What is the first number?: "))
 for symbol in operations:
     print(symbol)
-operation_symbol = input("Pick an operation from the line above: ")
-num2 = int(input("What is the second number? "))
+while continue_calculating.lower() == "y":
+    operation_symbol = input("Pick an operation: ")
+    num2 = int(input("What is the next number?: "))
 
-first_answer = operations[operation_symbol](num1, num2)
-print(f"{num1} {operation_symbol} {num2} = {first_answer}")
+    answer = operations[operation_symbol](num1, num2)
+    print(f"{num1} {operation_symbol} {num2} = {answer}")
+    num1 = answer
 
-operation_symbol = input("Pick another operation: ")
-num3 = int(input("What is the next number? "))
+    continue_calculating = input(f"Type 'y' to continue calculating with {answer}, or type 'n' to exit.: ")
 
-second_answer = operations[operation_symbol](first_answer, num3)
-print(f"{first_answer} {operation_symbol} {num3} = {second_answer}")
+        
