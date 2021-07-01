@@ -21,6 +21,7 @@ from random import choice
 
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 blackjack_limit = 21
+computer_score_limit = 17
 
 def deal_card(num_of_cards):
     card_list = []
@@ -40,16 +41,33 @@ def calculate_score(hand):
             hand.append(1)
             score -= 10
     return score
+#Hint 13: Create a function called compare() and pass in the user_score and computer_score. 
+# If the user_score is over 21, then the user loses. If the computer_score is over 21, then the computer loses. If none of the above, then the player with the highest score wins.
 
-is_user_playing = True
+def compare(user_score, computer_score):
+    if user_score == computer_score:
+        print("Both computer and you have the same score. It's a draw!")
+    elif computer_score == 0:
+        print("Computer has a Blackjack! You lose!")
+    elif user_score == 0:
+        print("You have a Blackjack! You win!")
+    elif user_score > 21:
+        print("You went over! You lose!")
+    elif computer_score > 21:
+        print("Computer went over! You win!")
+    elif computer_score > user_score:
+        print("Computer has a better hand! You lose!")
+    else:
+        print("You have a better hand! You win!")
+
 player_choice = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
-if player_choice.lower() == "n":
-    exit(0)
-else:
+
+while player_choice.lower() == "y":
     print(logo)
     user_cards = deal_card(2)
     computer_cards = deal_card(2)
 
+    is_user_playing = True
     while is_user_playing:
         user_score = calculate_score(user_cards)
         computer_score = calculate_score(computer_cards)
@@ -65,14 +83,16 @@ else:
             else:
                 is_user_playing = False
 
+    # Now the computer is playing
+    while computer_score < computer_score_limit:
+        computer_cards.extend(deal_card(1))
+        computer_score = calculate_score(computer_cards)
+    
+    print(f"Your final hand: {user_cards}, final score: {user_score}")
+    print(f"Computer's final hand: {computer_cards}, final score: {computer_score}")
 
-
-
-
-
-
-
-
+    compare(user_score, computer_score)
+    player_choice = input("Do you want to play another game of Blackjack? Type 'y' or 'n': ")
 
 
 
