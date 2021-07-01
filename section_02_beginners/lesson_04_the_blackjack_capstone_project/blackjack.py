@@ -16,6 +16,65 @@
 ## The cards in the list have equal probability of being drawn.
 ## Cards are not removed from the deck as they are drawn.
 ## The computer is the dealer.
+from art import logo
+from random import choice
+
+cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+blackjack_limit = 21
+
+def deal_card(num_of_cards):
+    card_list = []
+    for _ in range(num_of_cards):
+        card = choice(cards)
+        card_list.append(card)
+    return card_list
+
+def calculate_score(hand):
+    score = sum(hand)
+    if sum == blackjack_limit:
+        # This player won the game
+        return 0
+    elif score > blackjack_limit:
+        if 11 in hand:
+            hand.remove(11)
+            hand.append(1)
+            score -= 10
+    return score
+
+is_user_playing = True
+player_choice = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
+if player_choice.lower() == "n":
+    exit(0)
+else:
+    print(logo)
+    user_cards = deal_card(2)
+    computer_cards = deal_card(2)
+
+    while is_user_playing:
+        user_score = calculate_score(user_cards)
+        computer_score = calculate_score(computer_cards)
+        print(f"Your cards: {user_cards}, current score: {user_score}")
+        print(f"Computer's first card: {computer_cards[0]}")
+        
+        if user_score > blackjack_limit or user_score == 0 or computer_score == 0:
+            is_user_playing = False
+        else:
+            more_cards_choice = input("Type 'y' to get another card, type 'n' to pass: ").lower()
+            if more_cards_choice == "y":
+                user_cards.extend(deal_card(1))
+            else:
+                is_user_playing = False
+
+
+
+
+
+
+
+
+
+
+
 
 ##################### Hints #####################
 
