@@ -19,11 +19,12 @@
 from art import logo
 from random import choice
 
-cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 blackjack_limit = 21
 computer_score_limit = 17
 
 def deal_card(num_of_cards):
+    '''Take a number "num_of_cards" and returns a random list with with that many cards'''
+    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
     card_list = []
     for _ in range(num_of_cards):
         card = choice(cards)
@@ -31,38 +32,34 @@ def deal_card(num_of_cards):
     return card_list
 
 def calculate_score(hand):
+    '''Take a list of cards and returns the blackjack score calculated from the list'''
     score = sum(hand)
-    if sum == blackjack_limit:
-        # This player won the game
+    if sum == blackjack_limit and len(hand) == 2:
+        # This player has blackjack
         return 0
-    elif score > blackjack_limit:
-        if 11 in hand:
-            hand.remove(11)
-            hand.append(1)
-            score -= 10
+    elif score > blackjack_limit and 11 in hand:
+        hand.remove(11)
+        hand.append(1)
+        score -= 10
     return score
-#Hint 13: Create a function called compare() and pass in the user_score and computer_score. 
-# If the user_score is over 21, then the user loses. If the computer_score is over 21, then the computer loses. If none of the above, then the player with the highest score wins.
 
 def compare(user_score, computer_score):
     if user_score == computer_score:
-        print("Both computer and you have the same score. It's a draw!")
+        return "Both computer and you have the same score. It's a draw!"
     elif computer_score == 0:
-        print("Computer has a Blackjack! You lose!")
+        return "Computer has a Blackjack! You lose!"
     elif user_score == 0:
-        print("You have a Blackjack! You win!")
+        return "You have a Blackjack! You win!"
     elif user_score > 21:
-        print("You went over! You lose!")
+        return "You went over! You lose!"
     elif computer_score > 21:
-        print("Computer went over! You win!")
+        return "Computer went over! You win!"
     elif computer_score > user_score:
-        print("Computer has a better hand! You lose!")
+        return "Computer has a better hand! You lose!"
     else:
-        print("You have a better hand! You win!")
+        return "You have a better hand! You win!"
 
-player_choice = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
-
-while player_choice.lower() == "y":
+def play_blackjack():
     print(logo)
     user_cards = deal_card(2)
     computer_cards = deal_card(2)
@@ -84,15 +81,17 @@ while player_choice.lower() == "y":
                 is_user_playing = False
 
     # Now the computer is playing
-    while computer_score < computer_score_limit:
+    while computer_score != 0 and computer_score < computer_score_limit and user_score < blackjack_limit:
         computer_cards.extend(deal_card(1))
         computer_score = calculate_score(computer_cards)
     
     print(f"Your final hand: {user_cards}, final score: {user_score}")
     print(f"Computer's final hand: {computer_cards}, final score: {computer_score}")
 
-    compare(user_score, computer_score)
-    player_choice = input("Do you want to play another game of Blackjack? Type 'y' or 'n': ")
+    print(compare(user_score, computer_score))
+
+while input("Do you want to play a game of Blackjack? Type 'y' or 'n': ").lower() == "y":
+    play_blackjack()
 
 
 
