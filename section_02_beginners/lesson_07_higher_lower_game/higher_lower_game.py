@@ -10,9 +10,24 @@ continue_game = True
 first_entity = choice(data)
 print(logo)
 
+def format_entity(entity):
+    """Takes the entity data and returns printable format."""
+    return f"{entity['name']}, a {entity['description']}, from {entity['country']}"
+
+def check_user_choice(num_followers_first, num_followers_second, user_choice):
+    """Check if user is right - if yes loop, if no show end message"""
+    if num_followers_first > num_followers_second:
+        return user_choice == "A"
+    elif num_followers_first < num_followers_second:
+        return user_choice == "B"
+    else:
+        return True
+
 while continue_game:
     # Fetch data from list and Pick two random data
     second_entity = choice(data)
+    while first_entity == second_entity:
+        second_entity = choice(data)
 
     # Store the correct choice
     if first_entity['follower_count'] > second_entity['follower_count']:
@@ -22,23 +37,16 @@ while continue_game:
     print(f"Correct choice: {correct_choice_entity}")
 
     # Display 1 vs 2
-    print(f"Compare A: {first_entity['name']}, a {first_entity['description']} from {first_entity['country']}")
+    print(f"Compare A: {format_entity(first_entity)}")
     print(vs)
-    print(f"Against B: {second_entity['name']}, a {second_entity['description']} from {second_entity['country']}")
+    print(f"Against B: {format_entity(second_entity)}")
+
     # Get user input
     user_choice = input("Who has more followers? Type 'A' or 'B': ").upper()
-
-    # Check if user is right - if yes loop, if no show end message
-    if user_choice == "A":
-        user_choice_entity = first_entity
-    elif user_choice == "B":
-        user_choice_entity = second_entity
-    else:
-        print("Invalid Choice!")
-        continue_game = False
+    is_user_correct = check_user_choice(first_entity['follower_count'], second_entity['follower_count'], user_choice)
 
     print(logo)
-    if user_choice_entity == correct_choice_entity:
+    if is_user_correct:
         score += 1
         print(f"You're right! Current score: {score}.")
         first_entity = second_entity
