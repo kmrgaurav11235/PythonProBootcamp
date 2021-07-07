@@ -29,17 +29,27 @@ resources = {
     "milk": 200,
     "coffee": 100,
 }
+money = 0
+is_coffee_machine_on = True
 
-# TODO 1.1: Prompt user by asking “What would you like?
 
-# TODO 1.2: Check the user’s input to decide what to do next
+def print_report():
+    """Print report about the resources left in the coffee machine."""
+    print(f"Water: {resources['water']}ml")
+    print(f"Milk: {resources['milk']}ml")
+    print(f"Coffee: {resources['coffee']}g")
+    print(f"Money: ${money}")
+
+
+user_choice = input("What would you like? (espresso/latte/cappuccino):")
+
+if user_choice == "off":
+    is_coffee_machine_on = False
+elif user_choice == "report":
+    print_report()
 
 # TODO 1.3:  The prompt should show every time action has completed, e.g. once the drink is dispensed.
 # The prompt should show again to serve the next customer.
-
-# TODO 2.1: Turn off the Coffee Machine by entering "off" to the prompt.
-
-# TODO 3.1: Print report.
 
 # TODO 4.1: Check resources sufficient?
 
