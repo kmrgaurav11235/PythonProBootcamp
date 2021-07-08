@@ -41,30 +41,63 @@ def print_report():
     print(f"Money: ${money}")
 
 
-user_choice = input("What would you like? (espresso/latte/cappuccino):")
+def check_resources(drink_ingredients):
+    for ingredient_name in drink_ingredients:
+        quantity_required = drink_ingredients[ingredient_name]
+        quantity_present = resources[ingredient_name]
+        if quantity_required > quantity_present:
+            return [False, ingredient_name]
+    return [True]
 
-if user_choice == "off":
-    is_coffee_machine_on = False
-elif user_choice == "report":
-    print_report()
 
-# TODO 1.3:  The prompt should show every time action has completed, e.g. once the drink is dispensed.
-# The prompt should show again to serve the next customer.
+def check_money(total_cost, num_quarters, num_dimes, num_nickles, num_pennies):
+    total_payment = num_quarters * 0.25 + num_dimes * 0.1 + num_nickles * 0.05 + num_pennies * 0.01
+    if total_cost > total_payment:
+        return [False, 0.0]
+    else:
+        return [True, (total_payment - total_cost)]
 
-# TODO 4.1: Check resources sufficient?
 
-# TODO 5.1: Process coins
+def modify_resources(ingredients_used, total_cost):
+    global money
+    for ingredient_name in ingredients_used:
+        resources[ingredient_name] = resources[ingredient_name] - ingredients_used[ingredient_name]
+    money = money + total_cost
 
-# TODO 6.1: Check that the user has inserted enough money to purchase the drink they selected
 
-# TODO 6.2: If the user has inserted enough money, then the cost of the drink gets added to the
-# machine as the profit and this will be reflected the next time "report" is triggered.
+while is_coffee_machine_on:
+    user_choice = input("What would you like? (espresso/latte/cappuccino): ").lower()
 
-# TODO 6.3: If the user has inserted too much money, the machine should offer change.
+    if user_choice == "off":
+        is_coffee_machine_on = False
+    elif user_choice == "report":
+        print_report()
+    elif user_choice in MENU:
+        drink_details = MENU[user_choice]
+        ingredients = drink_details["ingredients"]
+        cost = drink_details["cost"]
 
-# TODO 7.1:  If the transaction is successful and there are enough resources to make the drink the
-# user selected, then the ingredients to make the drink should be deducted from the
-# coffee machine resources.
+        resources_check_result = check_resources(ingredients)
+        are_resources_sufficient = resources_check_result[0]
+        if are_resources_sufficient:
+            print("Please insert coins.")
+            quarters = int(input("how many quarters?: "))
+            dimes = int(input("how many dimes?: "))
+            nickles = int(input("how many nickles?: "))
+            pennies = int(input("how many pennies?: "))
 
-# TODO 7.2: Once all resources have been deducted, tell the user “Here is your latte. Enjoy!”. If
-# latte was their choice of drink.
+            check_money_result = check_money(cost, quarters, dimes, nickles, pennies)
+            is_enough_money_inserted = check_money_result[0]
+
+            if is_enough_money_inserted:
+                modify_resources(ingredients, cost)
+                change = check_money_result[1]
+                print(f"Here is ${round(change, 2)} in change.")
+                print(f"Here is your {user_choice} ☕️. Enjoy!")
+            else:
+                print("Sorry that's not enough money. Money refunded.")
+        else:
+            print(f"Sorry there is not enough {resources_check_result[1]}!")
+    else:
+        print("Invalid Choice!")
+
