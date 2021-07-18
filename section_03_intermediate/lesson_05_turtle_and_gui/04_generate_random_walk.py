@@ -10,7 +10,7 @@ directions = [0, 90, 180, 270]
 
 for _ in range(200):
     random_color = (randint(0, 255), randint(0, 255), randint(0, 255))
-    tim.color(random_color, random_color)
+    tim.color(random_color)
     random_direction = choice(directions)
     tim.setheading(random_direction)
     tim.forward(50)
