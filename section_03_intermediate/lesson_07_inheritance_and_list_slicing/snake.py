@@ -4,6 +4,10 @@ from turtle import Turtle
 TURTLE_WIDTH = 20
 NUM_SEGMENTS = 3
 MOVE_DISTANCE = 20
+UP = 90
+DOWN = 270
+LEFT = 180
+RIGHT = 0
 
 
 # Snake body: we will create 3 turtles as squares -- lined up with each other.
@@ -12,6 +16,7 @@ class Snake:
     def __init__(self):
         self.snake_segments = []
         self.create_snake()
+        self.head = self.snake_segments[0]
 
     def create_snake(self):
         for index in range(NUM_SEGMENTS):
@@ -34,4 +39,20 @@ class Snake:
             new_y = self.snake_segments[segment_num - 1].ycor()
             self.snake_segments[segment_num].goto(new_x, new_y)
 
-        self.snake_segments[0].forward(MOVE_DISTANCE)
+        self.head.forward(MOVE_DISTANCE)
+
+    def up(self):
+        if self.head.heading() != DOWN:
+            self.head.setheading(UP)
+
+    def down(self):
+        if self.head.heading() != UP:
+            self.head.setheading(DOWN)
+
+    def left(self):
+        if self.head.heading() != RIGHT:
+            self.head.setheading(LEFT)
+
+    def right(self):
+        if self.head.heading() != LEFT:
+            self.head.setheading(RIGHT)

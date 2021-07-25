@@ -10,6 +10,13 @@ screen.tracer(0)  # This turns the tracer off. Now the screen will refresh only 
 
 snake = Snake()
 
+# Listen to key-strokes
+screen.listen()
+screen.onkey(snake.up, "Up")
+screen.onkey(snake.down, "Down")
+screen.onkey(snake.left, "Left")
+screen.onkey(snake.right, "Right")
+
 is_game_on = True
 while is_game_on:
     screen.update()  # Updates the screen only after all the segments have moved.
