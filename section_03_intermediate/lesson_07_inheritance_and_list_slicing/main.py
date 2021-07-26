@@ -1,5 +1,6 @@
 from turtle import Screen
 from snake import Snake
+from food import Food
 import time
 
 screen = Screen()
@@ -9,6 +10,7 @@ screen.title("My Snake Game")
 screen.tracer(0)  # This turns the tracer off. Now the screen will refresh only after screen.update() is called
 
 snake = Snake()
+food = Food()
 
 # Listen to key-strokes
 screen.listen()
