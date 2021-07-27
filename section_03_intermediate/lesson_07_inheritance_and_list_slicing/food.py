@@ -15,7 +15,9 @@ class Food(Turtle):
         # This means we don't have to look at the animation of food being created at the centre and then moving to
         # its location
         self.speed("fastest")
+        self.refresh()
 
+    def refresh(self):
         random_x = randint(-280, 280)
         random_y = randint(-280, 280)
         self.goto(random_x, random_y)
