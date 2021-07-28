@@ -24,17 +24,18 @@ screen.onkey(snake.right, "Right")
 is_game_on = True
 while is_game_on:
     screen.update()  # Updates the screen only after all the segments have moved.
-    time.sleep(0.1)  # Sleeps for 0.1 seconds. This controls the pace of the snake
+    time.sleep(0.15)  # Sleeps for 0.1 seconds. This controls the pace of the snake
     snake.move()
 
     # Detect collision with food: using the turtle distance() method
     if snake.head.distance(food) < 15:
         # Size of food = 10px. So, we put 15 here.
         food.refresh()
+        snake.extend()
         scoreboard.increment_score()
 
     # Detect collision with wall
-    if snake.head.xcor() < -280 or snake.head.xcor() > 280 or snake.head.ycor() < -280 or snake.head.ycor() > 280:
+    if snake.head.xcor() < -290 or snake.head.xcor() > 290 or snake.head.ycor() < -290 or snake.head.ycor() > 290:
         is_game_on = False
         scoreboard.game_over()
 
