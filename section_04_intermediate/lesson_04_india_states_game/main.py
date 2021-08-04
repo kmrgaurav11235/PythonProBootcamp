@@ -26,7 +26,9 @@ while is_game_ongoing:
     answer_state = screen.textinput(title=f"{guessed_num_states}/{total_num_states} States Correct",
                                     prompt="What is another State's name?").title()
 
-    if answer_state in remaining_states_list:
+    if answer_state == "Exit":
+        break
+    elif answer_state in remaining_states_list:
         remaining_states_list.remove(answer_state)
         guessed_num_states += 1
 
@@ -40,5 +42,6 @@ while is_game_ongoing:
         if guessed_num_states == total_num_states:
             is_game_ongoing = False
 
+states_to_learn_dataframe = pandas.DataFrame(data=remaining_states_list)
+states_to_learn_dataframe.to_csv(path_or_buf="state_to_learn.csv")
 
-screen.exitonclick()
