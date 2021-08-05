@@ -8,7 +8,7 @@ numbers = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 
 # Write your 1 line code 👇 below:
 
-
+squared_numbers = [num ** 2 for num in numbers]
 
 # Write your code 👆 above:
 
@@ -22,7 +22,7 @@ numbers = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 
 # Write your 1 line code 👇 below:
 
-
+result = [num for num in numbers if num % 2 == 0]
 
 # Write your code 👆 above:
 
@@ -34,6 +34,18 @@ print(result)
 # IMPORTANT: The result should be a list that contains Integers, not Strings.
 
 
+# Write your code 👇 below
+
+with open(file="file1.txt") as file1:
+    file1_list = file1.readlines()
+
+with open(file="file2.txt") as file2:
+    file2_list = file2.readlines()
+
+file1_num_list = [int(item.strip()) for item in file1_list]
+file2_num_list = [int(item.strip()) for item in file2_list]
+
+result = [num for num in file1_num_list if num in file2_num_list]
 
 # Write your code above 👆
 
