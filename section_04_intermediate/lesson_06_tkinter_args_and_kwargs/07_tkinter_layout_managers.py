@@ -5,6 +5,9 @@ window.title("My First GUI Program")
 
 window.minsize(width=500, height=300)
 
+# Adding padding
+window.config(padx=20, pady=20)
+
 my_label = Label(text="I am a label", font=("Arial", 24, "bold"))
 
 # Tkinter has many different layout managers. If a widget is added in code but it doesn't have any layout specified,
@@ -16,6 +19,9 @@ my_label = Label(text="I am a label", font=("Arial", 24, "bold"))
 # 3. Grid -> Divides the window into a grid and lets you specify the row and column
 my_label.grid(row=5, column=5)
 # Warning: You cannot mix-up grid() and pack() in the same program.
+
+# Padding can also be added to the widgets
+my_label.config(padx=50, pady=30)
 
 
 def button_clicked():
