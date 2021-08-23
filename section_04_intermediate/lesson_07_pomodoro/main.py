@@ -25,6 +25,17 @@ def start_timer():
 def count_down(count):
     minutes_left = math.floor(count / 60)
     seconds_left = count % 60
+    if seconds_left < 10:
+        seconds_left = f"0{seconds_left}"
+        # Python is strongly typed, but also has Dynamic Typing
+        # Strongly typed - Strong typing means that the type of a value doesn't change in unexpected ways. A string
+        #   containing only digits doesn't magically become a number, as may happen in Perl. Every change of type
+        #   requires an explicit conversion.Each variable has a type and it remembers its type. If you do an operation
+        #   which is not supported on the type, you will get a 'TypeError'. e.g. trying to do ** (power) operation
+        #   on a string.
+        # Dynamic Typing - Dynamic typing means that runtime objects (values) have a type, as opposed to static typing
+        #   where variables have a type. In python, you are allowed to change the type of a variable. e.g. here we are
+        #   changing the type of 'seconds_left' variable from int to str.
     canvas.itemconfig(timer_text, text=f"{minutes_left}:{seconds_left}")
     if count > 0:
         window.after(1000, count_down, count - 1)
