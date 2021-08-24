@@ -13,8 +13,19 @@ CHECK_MARK = "✓"
 
 # ---------------------------- GLOBAL VARIABLES ------------------------------- #
 reps = 0
+timer = None
 
-# ---------------------------- TIMER RESET ------------------------------- # 
+# ---------------------------- TIMER RESET ------------------------------- #
+
+
+def reset_timer():
+    window.after_cancel(timer)
+    canvas.itemconfig(timer_text, text="00:00")
+    title_label.config(text="Timer")
+    check_marks_label.config(text="")
+    global reps
+    reps = 0
+
 
 # ---------------------------- TIMER MECHANISM ------------------------------- #
 
@@ -28,7 +39,7 @@ def start_timer():
     long_break_in_seconds = LONG_BREAK_MIN * 60
 
     rep_modulo = reps % 8
-    if rep_modulo == 1 or rep_modulo == 3 or rep_modulo == 5 or rep_modulo == 7:
+    if rep_modulo % 2 == 1:
         # Work Time
         count_down_time_in_seconds = work_time_in_seconds
         title_label.config(text="Work", fg=GREEN)
@@ -60,9 +71,15 @@ def count_down(count):
         #   changing the type of 'seconds_left' variable from int to str.
     canvas.itemconfig(timer_text, text=f"{minutes_left}:{seconds_left}")
     if count > 0:
-        window.after(1000, count_down, count - 1)
+        global timer
+        timer = window.after(1000, count_down, count - 1)
     else:
         start_timer()
+        check_marks_text = ""
+        num_check_marks = math.floor(reps / 2)
+        for i in range(num_check_marks):
+            check_marks_text += CHECK_MARK
+        check_marks_label.config(text=check_marks_text)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -82,10 +99,10 @@ canvas.grid(row=1, column=1)
 start_button = Button(text="Start", highlightbackground=YELLOW, foreground=RED, command=start_timer)
 start_button.grid(row=2, column=0)
 
-reset_button = Button(text="Reset", highlightbackground=YELLOW, foreground=RED)
+reset_button = Button(text="Reset", highlightbackground=YELLOW, foreground=RED, command=reset_timer)
 reset_button.grid(row=2, column=2)
 
-check_marks_label = Label(text=CHECK_MARK, font=(FONT_NAME, 25), fg=GREEN, bg=YELLOW)
+check_marks_label = Label(font=(FONT_NAME, 25), fg=GREEN, bg=YELLOW)
 check_marks_label.grid(row=3, column=1)
 
 window.mainloop()
