@@ -13,20 +13,23 @@ def save_data():
     username = username_entry.get()
     password = password_entry.get()
 
-    confirmation_message = f"These are the details entered: \n  User/Email: {username} " \
-                           f"\n  Password: {password}\nIs this ok to save?"
+    if len(website) == 0 or len(username) == 0 or len(password) == 0:
+        messagebox.showerror(title="Oops!", message="Please don't leave any fields empty!")
+    else:
+        confirmation_message = f"These are the details entered: \n  User/Email: {username} " \
+                               f"\n  Password: {password}\nIs this ok to save?"
 
-    is_ok = messagebox.askokcancel(title=website, message=confirmation_message)  # Confirmation dialog box
-    if is_ok:
-        data = f"{website} | {username} | {password}\n"
-        # Save the data
-        with open(file=DATA_FILE_NAME, mode="a") as data_file:
-            data_file.write(data)
+        is_ok = messagebox.askokcancel(title=website, message=confirmation_message)  # Confirmation dialog box
+        if is_ok:
+            data = f"{website} | {username} | {password}\n"
+            # Save the data
+            with open(file=DATA_FILE_NAME, mode="a") as data_file:
+                data_file.write(data)
 
-        # Clear widgets
-        website_entry.delete(first=0, last=END)
-        password_entry.delete(first=0, last=END)
-        website_entry.focus()
+            # Clear widgets
+            website_entry.delete(first=0, last=END)
+            password_entry.delete(first=0, last=END)
+            website_entry.focus()
 
 
 # ---------------------------- UI SETUP ------------------------------- #
