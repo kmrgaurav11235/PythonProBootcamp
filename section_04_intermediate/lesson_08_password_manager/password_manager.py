@@ -1,8 +1,40 @@
 from tkinter import *
 from tkinter import messagebox
+from random import choice, randint, shuffle
+import pyperclip
+
 # ---------------------------- CONSTANTS ------------------------------- #
 DATA_FILE_NAME = "data.txt"
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+
+
+def generate_password():
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+               'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+               'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+    nr_letters = randint(8, 10)
+    nr_symbols = randint(2, 4)
+    nr_numbers = randint(2, 4)
+
+    password_list = []
+
+    password_list.extend([choice(letters) for _ in range(nr_letters)])
+    password_list.extend([choice(symbols) for _ in range(nr_symbols)])
+    password_list.extend([choice(numbers) for _ in range(nr_numbers)])
+
+    shuffle(password_list)
+
+    password = "".join(password_list)
+
+    password_entry.delete(0, END)
+    password_entry.insert(index=0, string=password)
+
+    # Copy password to clipboard
+    pyperclip.copy(password)
+
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -10,18 +42,18 @@ DATA_FILE_NAME = "data.txt"
 def save_data():
     # Get data
     website = website_entry.get()
-    username = username_entry.get()
-    password = password_entry.get()
+    user_name = username_entry.get()
+    user_password = password_entry.get()
 
-    if len(website) == 0 or len(username) == 0 or len(password) == 0:
+    if len(website) == 0 or len(user_name) == 0 or len(user_password) == 0:
         messagebox.showerror(title="Oops!", message="Please don't leave any fields empty!")
     else:
-        confirmation_message = f"These are the details entered: \n  User/Email: {username} " \
-                               f"\n  Password: {password}\nIs this ok to save?"
+        confirmation_message = f"These are the details entered: \n  User/Email: {user_name} " \
+                               f"\n  Password: {user_password}\nIs this ok to save?"
 
         is_ok = messagebox.askokcancel(title=website, message=confirmation_message)  # Confirmation dialog box
         if is_ok:
-            data = f"{website} | {username} | {password}\n"
+            data = f"{website} | {user_name} | {user_password}\n"
             # Save the data
             with open(file=DATA_FILE_NAME, mode="a") as data_file:
                 data_file.write(data)
@@ -70,7 +102,7 @@ password_entry = Entry(width=21)
 password_entry.grid(row=3, column=1)
 
 # generate password button
-generate_password_button = Button(text="Generate Password")
+generate_password_button = Button(text="Generate Password", command=generate_password)
 generate_password_button.grid(row=3, column=2)
 
 # Add button
