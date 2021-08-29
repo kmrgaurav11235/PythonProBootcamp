@@ -7,8 +7,12 @@ fruits = ["Apple", "Pear", "Orange"]
 
 
 def make_pie(index):
-    fruit = fruits[index]
-    print(fruit + " pie")
+    try:
+        fruit = fruits[index]
+    except IndexError:
+        print("Fruit pie")
+    else:
+        print(fruit + " pie")
 
 
 make_pie(4)
@@ -29,7 +33,9 @@ facebook_posts = [
 total_likes = 0
 
 for post in facebook_posts:
-    total_likes = total_likes + post['Likes']
-
+    try:
+        total_likes = total_likes + post['Likes']
+    except KeyError:
+        pass
 
 print(total_likes)
