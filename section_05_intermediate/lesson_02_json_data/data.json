@@ -1,14 +1,14 @@
 {
-    "amazon.com": {
+    "test1.com": {
         "user_name": "kgaurav@email.com",
-        "password": "8+B#fn5%FTxQv91"
+        "password": "E0T10N+Pb*XX7Q!H&i"
     },
     "test2.com": {
         "user_name": "kgaurav@email.com",
-        "password": "FZw(yDU9)wh7V0"
+        "password": "fIaX9C8FLUs+%4"
     },
-    "flipkart.com": {
+    "test3.com": {
         "user_name": "kgaurav@email.com",
-        "password": "ZQNh*(93uK5dT"
+        "password": "UT8*Ew0tuRG%je"
     }
 }

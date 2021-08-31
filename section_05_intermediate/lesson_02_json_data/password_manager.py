@@ -63,12 +63,16 @@ def save_data():
                 }
             }
 
-            with open(file=DATA_FILE_NAME, mode="r") as data_file:
-                # Read the data
-                file_data = json.load(fp=data_file)
+            try:
+                with open(file=DATA_FILE_NAME, mode="r") as data_file:
+                    # Read the data
+                    file_data = json.load(fp=data_file)
 
-                # Update the file_data with the new data in data_dict
-                file_data.update(data_dict)
+                    # Update the file_data with the new data in data_dict
+                    file_data.update(data_dict)
+            except FileNotFoundError:
+                # File doesn't exists
+                file_data = data_dict
 
             # Save the data
             with open(file=DATA_FILE_NAME, mode="w") as data_file:
