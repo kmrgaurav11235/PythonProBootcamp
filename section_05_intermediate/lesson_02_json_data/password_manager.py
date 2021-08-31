@@ -2,9 +2,12 @@ from tkinter import *
 from tkinter import messagebox
 from random import choice, randint, shuffle
 import pyperclip
+import json
 
 # ---------------------------- CONSTANTS ------------------------------- #
-DATA_FILE_NAME = "data.txt"
+DATA_FILE_NAME = "data.json"
+USER_NAME_FIELD = "user_name"
+PASSWORD_FIELD = "password"
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 
@@ -53,10 +56,15 @@ def save_data():
 
         is_ok = messagebox.askokcancel(title=website, message=confirmation_message)  # Confirmation dialog box
         if is_ok:
-            data = f"{website} | {user_name} | {user_password}\n"
+            data_dict = {
+                website: {
+                    USER_NAME_FIELD: user_name,
+                    PASSWORD_FIELD: user_password,
+                }
+            }
             # Save the data
-            with open(file=DATA_FILE_NAME, mode="a") as data_file:
-                data_file.write(data)
+            with open(file=DATA_FILE_NAME, mode="w") as data_file:
+                json.dump(obj=data_dict, fp=data_file, indent=4)
 
             # Clear widgets
             website_entry.delete(first=0, last=END)
