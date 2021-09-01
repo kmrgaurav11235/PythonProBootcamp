@@ -83,6 +83,28 @@ def save_data():
             password_entry.delete(first=0, last=END)
             website_entry.focus()
 
+# ---------------------------- SEARCH DATA ------------------------------- #
+
+
+def search_data():
+    website = website_entry.get()
+    if len(website) == 0:
+        messagebox.showerror(title="Oops!", message="Please provide Website for Search!")
+    else:
+        try:
+            with open(file=DATA_FILE_NAME, mode="r") as data_file:
+                file_data = json.load(fp=data_file)
+        except FileNotFoundError:
+            messagebox.showerror(title="Oops!", message="No Data File Found!")
+        else:
+            if website in file_data:
+                website_details = file_data[website]
+                messagebox.showinfo(title=website,
+                                    message=f"User/Email: {website_details[USER_NAME_FIELD]}"
+                                            f"\nPassword: {website_details[PASSWORD_FIELD]}")
+            else:
+                messagebox.showwarning(title="Oops!", message="No details for website exists!")
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
@@ -108,8 +130,8 @@ password_label = Label(text="Password:")
 password_label.grid(row=3, column=0)
 
 # website entry
-website_entry = Entry(width=38)
-website_entry.grid(row=1, column=1, columnspan=2)
+website_entry = Entry(width=21)
+website_entry.grid(row=1, column=1)
 website_entry.focus()  # Put the cursor here
 
 # username entry
@@ -120,6 +142,10 @@ username_entry.grid(row=2, column=1, columnspan=2)
 # password entry
 password_entry = Entry(width=21)
 password_entry.grid(row=3, column=1)
+
+# search button
+search_button = Button(text="Search", width=13, command=search_data)
+search_button.grid(row=1, column=2)
 
 # generate password button
 generate_password_button = Button(text="Generate Password", command=generate_password)
