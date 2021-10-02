@@ -2,7 +2,8 @@ from question_model import Question
 from data import question_data
 from quiz_brain import QuizBrain
 
-# Set-up done using https://github.com/kmrgaurav11235/PythonProBootcamp/tree/master/section_03_intermediate/lesson_04_benefits_of_oop
+# Set-up done using:
+# https://github.com/kmrgaurav11235/PythonProBootcamp/tree/master/section_03_intermediate/lesson_04_benefits_of_oop
 
 question_bank = []
 for question in question_data:
